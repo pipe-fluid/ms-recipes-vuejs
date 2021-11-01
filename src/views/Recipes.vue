@@ -10,12 +10,16 @@
     >
       <v-card-title> {{ item.title }}</v-card-title>
       
-      <v-img src="https://images.ctfassets.net/kk2bw5ojx476/3TJp6aDAcMw6yMiE82Oy0K/2a4cde3c1c7e374166dcce1e900cb3c1/SKU1503_Hero_102__1_-6add52eb4eec83f785974ddeac3316b7.jpg"></v-img>
+      <v-img
+        :src="photoUrl[item.photo.sys.id]"
+        class="img-fluid"
+        :key="index"
+      ></v-img>
 
       <v-card-actions>
         <div data-app>
           <v-btn class="button" text v-bind:recipes="recipes">
-            <Details />
+            <Details :photoUrl="photoUrl" />
           </v-btn>
         </div>
       </v-card-actions>
@@ -30,6 +34,7 @@ export default {
   data() {
     return {
       recipes: [],
+      photoUrl: {}
     };
   },
   async created() {
@@ -41,9 +46,19 @@ export default {
       for (let i = 0; i < res.items.length; i++) {
         if (res.items[i].sys.contentType.sys.id == "recipe") {
           this.recipes.push(res.items[i].fields);
+          let id = res.items[i].fields.photo.sys.id;
+          // await returns a string instead of promise
+          this.photoUrl[id] = await this.getPhoto(res, id);
         }
       }
-      console.log(res)
+    },
+    async getPhoto(res, id) {
+      for (let i = 0; i < res.includes.Asset.length; i++) {
+        let photo = res.includes.Asset[i];
+        if (photo.sys.id == id) {
+          return photo.fields.file.url;
+        }
+      }
     },
   },
 };
