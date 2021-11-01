@@ -34,6 +34,8 @@ npm run lint
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### Things to add:
+### TO DO:
 
-Chicken Salad picture is not displaying in Recipes.vue
+Fix picture - Chicken Salad picture is not displaying in Recipes.vue
+Add more tests
+Display tags and chefs
