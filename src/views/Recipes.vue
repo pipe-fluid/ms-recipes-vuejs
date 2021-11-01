@@ -47,10 +47,8 @@ export default {
         if (res.items[i].sys.contentType.sys.id == "recipe") {
           this.recipes.push(res.items[i].fields);
           let id = res.items[i].fields.photo.sys.id;
-          console.log(id)
           // await returns a string instead of promise
           this.photoUrl[id] = await this.getPhoto(res, id);
-          console.log(this.photoUrl[id])
         }
       }
     },
