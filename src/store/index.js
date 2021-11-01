@@ -7,6 +7,7 @@ Vue.use(Vuex)
 const initialState = () => {
     return {
         items: [],
+        photos: []
     }
 }
 
@@ -26,5 +27,13 @@ export default new Vuex.Store({
             commit('SET_GLOBAL_VARIABLE', { let: "items", value: res.items })
             return res
         },
+        getPhotos: async function({ commit }, payload) {
+            const res = await api.getData(payload);
+            const photos = res.includes.Asset;
+            commit('UPDATE_STATE'), {
+              item: "photos",
+              data: photos
+            }
+        }
     }
 })

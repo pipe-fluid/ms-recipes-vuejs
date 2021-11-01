@@ -15,7 +15,7 @@
       <v-card-actions>
         <div data-app>
           <v-btn class="button" text v-bind:recipes="recipes">
-            Know More
+            <Details />
           </v-btn>
         </div>
       </v-card-actions>
@@ -24,7 +24,9 @@
 </template>
 
 <script>
+import Details from "../components/Details.vue"
 export default {
+  components: { Details },
   data() {
     return {
       recipes: [],
