@@ -10,8 +10,15 @@
       <v-card>
         <!-- Title -->
         <v-card-title class="text-h5 grey lighten-2">
-          Testing Recipes
+          {{ recipes.title }}
         </v-card-title>
+        <!-- Picture -->
+        <v-img :src="photoUrl[recipes.photo.sys.id]" class="img-fluid"></v-img>
+        <v-divider></v-divider>
+        <br>
+        <!-- Calories -->
+        <v-card-text> Description: {{ recipes.description }} kcal </v-card-text>
+        <v-card-text> Calories: {{ recipes.calories }} kcal </v-card-text>
         <v-divider></v-divider>
 
         <v-card-actions>
@@ -26,6 +33,7 @@
 <script>
 export default {
   name: "Details",
+  props: ["recipes", "photoUrl"],
   data() {
     return {
       dialog: false,

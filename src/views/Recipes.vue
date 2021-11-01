@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>Recipes</h1>
+    <h1>Marley Spoon Recipes</h1>
     <!-- CARDS -->
     <v-card
       fluid
@@ -19,7 +19,7 @@
       <v-card-actions>
         <div data-app>
           <v-btn class="button" text v-bind:recipes="recipes">
-            <Details :photoUrl="photoUrl" />
+            <Details :recipes="item" :photoUrl="photoUrl" />
           </v-btn>
         </div>
       </v-card-actions>
