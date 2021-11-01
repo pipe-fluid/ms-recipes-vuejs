@@ -1,13 +1,15 @@
 <template>
   <div id="app">
-    <h1>Marley Spoon Recipes</h1>
+    <Recipes />
   </div>
 </template>
 
 <script>
-
 export default {
   name: "App",
+  components: {
+    Recipes: () => import("./views/Recipes.vue"),
+  },
 };
 </script>
 
