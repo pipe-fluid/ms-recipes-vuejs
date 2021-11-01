@@ -1,56 +1,52 @@
 <template>
-  <div>
-    <h1>Marley Spoon Recipes</h1>
-     <v-card
-    class="mx-auto"
-    max-width="400"
-  >
-      <v-img
-        class="white--text align-end"
-        height="200px"
-        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-      >
-        <v-card-title>Top 10 Australian beaches</v-card-title>
-      </v-img>
-
-      <v-card-subtitle class="pb-0">
-        Number 10
-      </v-card-subtitle>
-
-      <v-card-text class="text--primary">
-        <div>Whitehaven Beach</div>
-
-        <div>Whitsunday Island, Whitsunday Islands</div>
-      </v-card-text>
+  <v-container>
+    <h1>Recipes</h1>
+    <!-- CARDS -->
+    <v-card
+      fluid
+      class="card mx-auto flex"
+      v-for="(item, index) in recipes"
+      :key="index"
+    >
+      <v-card-title> {{ item.title }}</v-card-title>
+      
+      <v-img src="https://images.ctfassets.net/kk2bw5ojx476/3TJp6aDAcMw6yMiE82Oy0K/2a4cde3c1c7e374166dcce1e900cb3c1/SKU1503_Hero_102__1_-6add52eb4eec83f785974ddeac3316b7.jpg"></v-img>
 
       <v-card-actions>
-        <v-btn
-          color="orange"
-          text
-        >
-          Share
-        </v-btn>
-
-        <v-btn
-          color="orange"
-          text
-        >
-          Explore
-        </v-btn>
+        <div data-app>
+          <v-btn class="button" text v-bind:recipes="recipes">
+            Know More
+          </v-btn>
+        </div>
       </v-card-actions>
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <script>
 export default {
-  async created() {
-    let res = await this.$store.dispatch("getItems");
-    console.log(res)
+  data() {
+    return {
+      recipes: [],
+    };
   },
-}
+  async created() {
+    this.getRecipes();
+  },
+  methods: {
+    async getRecipes() {
+      let res = await this.$store.dispatch("getItems");
+      for (let i = 0; i < res.items.length; i++) {
+        if (res.items[i].sys.contentType.sys.id == "recipe") {
+          this.recipes.push(res.items[i].fields);
+        }
+      }
+      console.log(res)
+    },
+  },
+};
 </script>
 
-<style>
-
+<style scoped lang="scss">
+@import "../assets/styling/views/recipes.scss";
 </style>
