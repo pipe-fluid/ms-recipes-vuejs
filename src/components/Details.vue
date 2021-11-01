@@ -16,8 +16,9 @@
         <v-img :src="photoUrl[recipes.photo.sys.id]" class="img-fluid"></v-img>
         <v-divider></v-divider>
         <br>
+        <!-- Marked down description -->
+        <v-card-text v-html="markDown"> </v-card-text>
         <!-- Calories -->
-        <v-card-text> Description: {{ recipes.description }} kcal </v-card-text>
         <v-card-text> Calories: {{ recipes.calories }} kcal </v-card-text>
         <v-divider></v-divider>
 
@@ -31,6 +32,7 @@
 </template>
 
 <script>
+import marked from "marked";
 export default {
   name: "Details",
   props: ["recipes", "photoUrl"],
@@ -39,9 +41,10 @@ export default {
       dialog: false,
     };
   },
+  computed: {
+    markDown() {
+      return marked(this.recipes.description);
+    },
+  },
 };
 </script>
-
-<style>
-
-</style>
